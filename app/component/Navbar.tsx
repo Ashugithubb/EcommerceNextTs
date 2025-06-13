@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,8 +14,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useSearchParams } from 'next/navigation';
-import { usePathname, useRouter } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
+// import { usePathname, useRouter } from 'next/navigation';
 import { CleaningServices } from '@mui/icons-material';
 const pages = ['Man', 'Women', 'Electronics', 'jawellry'];
 const settings = ['Logout'];

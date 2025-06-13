@@ -5,16 +5,18 @@ import Image from "next/image";
 import Navbar from "./component/Navbar";
 import  ProductCard from "./component/Card";
 import { Box, Typography } from '@mui/joy';
-interface product{
-  id:number,
-  title:string,
-  image:string,
-  price:number,
-  rating: {
-        rate: number,
-        count: number
-    }
-}
+import product from './component/product';
+// interface product{
+//   id:number,
+//   title:string,
+//   image:string,
+//   price:number,
+//   rating: {
+//         rate: number,
+//         count: number
+//     }
+// }
+// https://dummyjsn.com/products
 
 export default function Home() {
   const [data,setData] = useState<product[]>([]);
@@ -24,8 +26,8 @@ export default function Home() {
     
     async function fetchdata (){
       try{
-    const res = await axios.get("https://fakestoreapi.com/products");
-    setData(res.data);
+    const res = await axios.get("https://dummyjson.com/products?limit=500");
+    setData(res.data.products);
     setLoading(false);
     }
     catch(err:any){

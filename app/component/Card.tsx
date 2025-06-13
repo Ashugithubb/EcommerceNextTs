@@ -9,16 +9,8 @@ import Chip from '@mui/joy/Chip';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-interface product {
-    id: number,
-    title: string,
-    image: string,
-    price: number,
-    rating: {
-        rate: number,
-        count: number
-    }
-}
+import product from './product';
+
 export default function ProductCard(props: product) {
     // console.log(props);
     return (
@@ -26,7 +18,7 @@ export default function ProductCard(props: product) {
             <CardOverflow>
                 <AspectRatio sx={{ minWidth: 200 }}>
                     <img
-                        src={props.image}
+                        src={props.thumbnail}
                         // srcSet="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286&dpr=2 2x"
                         loading="lazy"
                         alt=""
@@ -57,7 +49,7 @@ export default function ProductCard(props: product) {
                     {props.price}$
                 </Typography>
                 <Typography level="body-sm">
-                    (Only {props.rating.count} left in stock!)
+                    (Only {props.stock} left in stock!)
                 </Typography>
             </CardContent>
             <CardOverflow>

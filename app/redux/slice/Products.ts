@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-interface product{
-  id:number,
-  title:string,
-  image:string,
-  price:number,
-  rating: {
-        rate: number,
-        count: number
-    }
-}
+import product from "@/app/component/product";
+// const initialState : product{
+
+// }
+// const ProductsSlice = createSlice({
+//     name: "products",
+//     initialState,
+//     reducers:{
+
+//     }
+
+// })
+//  export default ProductsSlice.reducer;
