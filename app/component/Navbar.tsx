@@ -14,12 +14,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-// import { useSearchParams } from 'next/navigation';
-// import { usePathname, useRouter } from 'next/navigation';
+import { useAppDispatch,useAppSelector } from '../redux/hook/hook';
+import { setCount } from '../redux/slice/CartCountSlice';
 import { CleaningServices } from '@mui/icons-material';
+import Badge from '@mui/material/Badge';
+import { useRouter } from 'next/navigation'
 const pages = ['Man', 'Women', 'Electronics', 'jawellry'];
 const settings = ['Logout'];
-
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -39,7 +40,13 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-  
+    const count = useAppSelector(state => state.counter.value);
+
+    const router = useRouter();
+    const uid = useAppSelector((state)=>state.UserUid.uid);
+    // const AddToCart = ()=>{
+
+    // }
     // const pathname = usePathname();
     // const { replace } = useRouter();
     //     const searchParams = useSearchParams();
@@ -52,6 +59,10 @@ function Navbar() {
     //     }
     //     console.log(category);
     // }
+    const users = useAppSelector((state)=>state.user.users);
+  
+    const user = users.filter((u)=>u.Uid===uid);
+    console.log(user);
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -152,12 +163,17 @@ function Navbar() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <IconButton color="inherit" sx={{ mr: 2 }}>
-                            <ShoppingCartIcon />
+                        <IconButton color="inherit" sx={{ mr: 2 }} onClick={()=>router.push('/cart')}>
+                            <Box>
+                                <Badge badgeContent={count} color="error">
+                                    <ShoppingCartIcon />
+                                </Badge>
+                            </Box>
                         </IconButton>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar />
+                              
+                                <Avatar src = {user[0].photoURL || ""} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -183,7 +199,7 @@ function Navbar() {
                             ))}
                         </Menu>
                     </Box>
-                    <Typography sx={{ ml: 1, color: 'white' }}>Guest</Typography>
+                    <Typography sx={{ ml: 1, color: 'white' }}>{user[0].displayName}</Typography>
                 </Toolbar>
 
             </Container>

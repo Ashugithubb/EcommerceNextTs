@@ -1,21 +1,24 @@
-'use client'
-import { useRef } from 'react'
-import { Provider } from 'react-redux'
-import { makeStore, AppStore } from './store/store'
-// import { initializeCount } from '../lib/features/counter/counterSlice'
+'use client';
+import { useRef } from 'react';
+import { Provider } from 'react-redux';
+import { makeStore } from './store/store';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
-export default function StoreProvider({
-  count,
-  children
-}: {
-  count: number
-  children: React.ReactNode
-}) {
-  const storeRef = useRef<AppStore | null>(null)
+export default function StoreProvider({ children }: { children: React.ReactNode }) {
+  const storeRef = useRef<ReturnType<typeof makeStore> | null>(null);
+  const persistorRef = useRef<any>(null);
+
   if (!storeRef.current) {
-    storeRef.current = makeStore()
-    // storeRef.current.dispatch(initializeCount(count))
+    storeRef.current = makeStore();
+    persistorRef.current = persistStore(storeRef.current);
   }
 
-  return <Provider store={storeRef.current}>{children}</Provider>
+  return (
+    <Provider store={storeRef.current}>
+      <PersistGate loading={null} persistor={persistorRef.current}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }

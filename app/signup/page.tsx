@@ -1,9 +1,12 @@
 "use client"
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+// import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase";
 // import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '../redux/hook/hook';
+import { RegisterUser } from '../redux/slice/UsersSlice';
+
 import {
     createUserWithEmailAndPassword,
 } from "firebase/auth";
@@ -18,19 +21,27 @@ import {
     Alert,
 } from "@mui/material";
 
- const SignUp = () => {
+const SignUp = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
-    const handleSignup = async ()=>{
-        const res =   await createUserWithEmailAndPassword(auth, email, password);
-        await setDoc(doc(db, "users", res.user.uid), {
-             id:res.user.uid,
-             name,
-             email,
-             password
-            });
+    const dispatch = useAppDispatch();
+    const handleSignup = async () => {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        console.log(res);
+        dispatch(RegisterUser({
+            Uid: res.user.uid,
+            displayName: res.user.displayName,
+            email: res.user.email,
+            photoURL: res.user.photoURL
+        }))
+        // await setDoc(doc(db, "users", res.user.uid), {
+        //     id: res.user.uid,
+        //     name,
+        //     email,
+        //     password
+        // });
         router.push("/login");
     }
     return (

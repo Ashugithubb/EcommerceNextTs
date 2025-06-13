@@ -1,13 +1,16 @@
 // components/LoginPage.tsx
 'use client'
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { useAppDispatch } from '../redux/hook/hook';
+import { RegisterUser } from '../redux/slice/UsersSlice';
 import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  Stack
+    Box,
+    TextField,
+    Button,
+    Typography,
+    Paper,
+    Stack
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import {
@@ -15,33 +18,47 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
 } from "firebase/auth";
-import{auth,db,googleProvider} from "../firebase/firebase"
-import {doc,setDoc} from "firebase/firestore"
+import { auth, db, googleProvider } from "../firebase/firebase"
+import { doc, setDoc } from "firebase/firestore"
+import { setUid } from '../redux/slice/LogedInUserSlice';
+
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const router = useRouter();
+    const dispatch = useAppDispatch();
 
-  const handleGoogleLogin = async () => {
-    try{
-        const res = await signInWithPopup(auth, googleProvider);
-        console.log("L00ged in");
-    }
-    catch (error: any) {
+    const handleGoogleLogin = async () => {
+        try {
+            const res = await signInWithPopup(auth, googleProvider);
+            console.log(res.user.uid);
+            dispatch(RegisterUser({
+                Uid: res.user.uid,
+                displayName: res.user.displayName,
+                email: res.user.email,
+                photoURL: res.user.photoURL
+            }))
+            toast("You are Loged in");
+             dispatch(setUid(res.user.uid));
+            router.push("/");
+        }
+        catch (error: any) {
             console.log(error);
+        }
+    };
+    const handleLogin = async () => {
+        try {
+            const response = await signInWithEmailAndPassword(auth, email, password);
+           dispatch(setUid(response.user.uid));
+            router.push("/");
+        }
+        catch (error: any) {
+            console.log(error);
+        }
     }
-  }; 
-  const handleLogin = async ()=>{
-    try{
-         const response = await signInWithEmailAndPassword(auth, email, password);
-    }
-    catch (error: any) {
-        console.log(error);
-    }
-  }
 
-  return (
-    <Box
+    return (
+        <Box
             sx={{
                 minHeight: "100vh",
                 display: "flex",
@@ -54,7 +71,7 @@ const LoginPage: React.FC = () => {
                 <Stack direction={"row"}>
                     <Typography>New User?</Typography>
                     <Typography
-                        onClick={() =>  router.push("/signup")}
+                        onClick={() => router.push("/signup")}
                         sx={{ paddingLeft: "10px", cursor: "pointer", color: "blue" }}
                     >
                         Signup
@@ -69,7 +86,7 @@ const LoginPage: React.FC = () => {
                 >
                     Continue with Google
                 </Button>
-
+                <ToastContainer />
                 <Typography sx={{ textAlign: "center" }}>or</Typography>
 
                 <Typography variant="h5" align="center" gutterBottom>
@@ -97,7 +114,7 @@ const LoginPage: React.FC = () => {
                     />
                     <Typography
                         sx={{ color: "blue", cursor: "pointer", fontSize: 14, mt: 1, mb: 2 }}
-                        // onClick={handleForgotPassword}
+                    // onClick={handleForgotPassword}
                     >
                         Forgot Password?
                     </Typography>
@@ -113,7 +130,7 @@ const LoginPage: React.FC = () => {
                 </Box>
             </Paper>
 
-            
+
         </Box>
     );
 };
