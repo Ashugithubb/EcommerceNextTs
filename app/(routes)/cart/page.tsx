@@ -1,7 +1,7 @@
 "use client"
 import { Typography, Box, Paper, Divider, Button } from "@mui/material";
-import { useAppDispatch,useAppSelector } from "../redux/hook/hook";
-import { removeProduct } from "../redux/slice/Products";
+import { useAppDispatch,useAppSelector } from "../../redux/hook/hook";
+import { removeProduct } from "../../redux/slice/Products";
 
 const Cart = () => {
   const productss = useAppSelector((state) => state.product.products);

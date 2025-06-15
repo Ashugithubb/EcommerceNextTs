@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface count{
-    uid:string|null
+    id:string|null
 }
 const initialState: count = {
-    uid:null
+    id:null
 };
  const CounterSlice = createSlice({
     name:"uid",
     initialState,
     reducers:{
-        setUid:(state,action:PayloadAction<string>)=>{
-            state.uid=action.payload;
+        setUid:(state,action:PayloadAction<string |null>)=>{
+            state.id=action.payload;
         }
     }
  })

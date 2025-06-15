@@ -1,16 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface count{
     value:number
 }
 const initialState: count = {
-    value: 0
+    value: 0,
 };
  const CounterSlice = createSlice({
     name:"counter",
     initialState,
     reducers:{
         setCount:(state)=>{
-            state.value++
+            state.value++;
+           
         }
     }
  })

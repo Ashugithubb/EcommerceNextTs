@@ -21,8 +21,8 @@ export default function ProductCard(props: Product) {
     const router = useRouter();
 
     const handleNavigate = () => {
-        console.log(`/product/${props.id}`);
-        router.push(`/product/${props.id}`);
+        
+        router.push(`/products/${props.id}`);
     };
 
     const dispatch = useAppDispatch();

@@ -2,8 +2,9 @@
 'use client'
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useAppDispatch } from '../redux/hook/hook';
-import { RegisterUser } from '../redux/slice/UsersSlice';
+import { useAppDispatch } from '../../redux/hook/hook';
+import { RegisterUser } from '../../redux/slice/UsersSlice';
+import { setCount } from '../../redux/slice/CartCountSlice';
 import {
     Box,
     TextField,
@@ -18,9 +19,9 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth, db, googleProvider } from "../firebase/firebase"
+import { auth, db, googleProvider } from "../../lib/firbase/firebase"
 import { doc, setDoc } from "firebase/firestore"
-import { setUid } from '../redux/slice/LogedInUserSlice';
+import { setUid } from '../../redux/slice/LogedInUserSlice';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -31,16 +32,16 @@ const LoginPage: React.FC = () => {
     const handleGoogleLogin = async () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
-            console.log(res.user.uid);
+          console.log(res);
             dispatch(RegisterUser({
                 Uid: res.user.uid,
                 displayName: res.user.displayName,
                 email: res.user.email,
-                photoURL: res.user.photoURL
+                photoURL: res.user.photoURL,
             }))
             toast("You are Loged in");
              dispatch(setUid(res.user.uid));
-            router.push("/");
+            router.push("/products");
         }
         catch (error: any) {
             console.log(error);

@@ -1,11 +1,11 @@
 "use client"
 import { useState } from "react";
 // import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../firebase/firebase";
+import { auth, db } from "../../lib/firbase/firebase";
 // import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '../redux/hook/hook';
-import { RegisterUser } from '../redux/slice/UsersSlice';
+import { useAppDispatch } from '../../redux/hook/hook';
+import { RegisterUser } from "../../redux/slice/UsersSlice"
 
 import {
     createUserWithEmailAndPassword,
@@ -27,14 +27,15 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const handleSignup = async () => {
+    const handleSignup = async (name:string) => {
         const res = await createUserWithEmailAndPassword(auth, email, password);
-        console.log(res);
+         console.log(name);
+       
         dispatch(RegisterUser({
             Uid: res.user.uid,
-            displayName: res.user.displayName,
+            displayName: name,
             email: res.user.email,
-            photoURL: res.user.photoURL
+            photoURL: "",
         }))
         // await setDoc(doc(db, "users", res.user.uid), {
         //     id: res.user.uid,
@@ -92,7 +93,7 @@ const SignUp = () => {
                         color="primary"
                         fullWidth
                         sx={{ mt: 2 }}
-                        onClick={handleSignup}
+                     onClick={() => handleSignup(name)}
                     >
                         SignUp
                     </Button>

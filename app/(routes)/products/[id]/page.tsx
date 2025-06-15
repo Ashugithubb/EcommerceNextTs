@@ -1,4 +1,4 @@
-'use client';
+
 import { Box, Typography } from "@mui/joy";
 import { Card, CardContent, CardOverflow, AspectRatio, Chip, Button } from "@mui/joy";
 import { use } from "react";
