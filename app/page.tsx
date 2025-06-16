@@ -1,11 +1,13 @@
-'use client'
- import { useRouter } from "next/navigation";
-export default  function Home() {
-  const router = useRouter();
-  router.push("/login");
-  return (
-    <>
+'use client';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-    </>
-  );
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/login");
+  }, [router]);
+
+  return null; // or a loading spinner if you want
 }
