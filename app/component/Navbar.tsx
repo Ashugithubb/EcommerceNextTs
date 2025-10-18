@@ -15,8 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAppDispatch, useAppSelector } from '../redux/hook/hook';
-import { setCount } from '../redux/slice/CartCountSlice';
-import { CleaningServices } from '@mui/icons-material';
 import Badge from '@mui/material/Badge';
 import { useRouter } from 'next/navigation'
 import { setUid } from '../redux/slice/LogedInUserSlice';

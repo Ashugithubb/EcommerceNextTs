@@ -9,12 +9,11 @@ import Chip from '@mui/joy/Chip';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import product from './product';
+
 import { useAppDispatch } from '../redux/hook/hook';
 import { setCount } from '../redux/slice/CartCountSlice';
 import { setProduct } from '../redux/slice/Products';
 import Product from './product';
-import { Box } from '@mui/material';
 import { useRouter } from "next/navigation";
 
 export default function ProductCard(props: Product) {

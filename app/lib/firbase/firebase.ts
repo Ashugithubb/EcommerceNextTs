@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore/lite';
 const firebaseConfig = {
   apiKey: "AIzaSyAnP8oLcPFcZshqOJkBKu8_AkOTe2QJ8Zw",
   authDomain: "nextpr-caefc.firebaseapp.com",

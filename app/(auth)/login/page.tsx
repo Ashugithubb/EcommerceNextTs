@@ -1,10 +1,10 @@
-// components/LoginPage.tsx
+
 'use client'
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAppDispatch } from '../../redux/hook/hook';
 import { RegisterUser } from '../../redux/slice/UsersSlice';
-import { setCount } from '../../redux/slice/CartCountSlice';
+
 import {
     Box,
     TextField,
@@ -17,10 +17,10 @@ import { useRouter } from 'next/navigation';
 import {
     signInWithPopup,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail,
+  
 } from "firebase/auth";
-import { auth, db, googleProvider } from "../../lib/firbase/firebase"
-import { doc, setDoc } from "firebase/firestore"
+import { auth,  googleProvider } from "../../lib/firbase/firebase"
+
 import { setUid } from '../../redux/slice/LogedInUserSlice';
 
 const LoginPage: React.FC = () => {

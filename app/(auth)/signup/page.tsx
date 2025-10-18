@@ -1,8 +1,6 @@
 "use client"
 import { useState } from "react";
-// import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../../lib/firbase/firebase";
-// import Link from 'next/link';
+import { auth } from "../../lib/firbase/firebase";
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '../../redux/hook/hook';
 import { RegisterUser } from "../../redux/slice/UsersSlice"
@@ -16,9 +14,6 @@ import {
     Button,
     Typography,
     Paper,
-    // Stack,
-    Snackbar,
-    Alert,
 } from "@mui/material";
 
 const SignUp = () => {
